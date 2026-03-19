@@ -1,0 +1,25 @@
+icon: https://apps.okteto.com/movies/icon.png
+
+build:
+  api:
+    context: api
+  frontend:
+    context: frontend
+  catalog:
+    context: catalog
+  rent:
+    context: rentals/rent
+  worker:
+    context: rentals/worker
+  tests:
+    context: tests
+
+deploy:
+  - name: Deploy Frontend
+    command: helm upgrade --install frontend frontend/chart --set image=${OKTETO_BUILD_FRONTEND_IMAGE}
+  - name: Deploy Catalog
+    command: helm upgrade --install catalog catalog/chart --set image=${OKTETO_BUILD_CATALOG_IMAGE}
+  - name: Deploy Rentals
+    command: helm upgrade --install rentals rentals/chart --set api.image=${OKTETO_BUILD_RENT_IMAGE} --set worker.image=${OKTETO_BUILD_WORKER_IMAGE}
+  - name: Deploy API
+    command: helm upgrade --install api api/chart --set image=${OKTETO_BUILD_API_IMAGE}

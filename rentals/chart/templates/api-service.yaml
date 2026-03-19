@@ -1,0 +1,18 @@
+{{- if .Values.api.enabled }}
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    {{- include "movies.labels" . | nindent 4 }}
+    app.kubernetes.io/name: api
+  name: rent
+spec:
+  type: ClusterIP
+  ports:
+  - name: http
+    port: 8080
+  selector:
+    app.kubernetes.io/name: api
+    app.kubernetes.io/instance: {{ .Release.Name }}
+  
+{{- end }}

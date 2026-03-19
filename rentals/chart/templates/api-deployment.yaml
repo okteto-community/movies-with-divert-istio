@@ -1,0 +1,27 @@
+{{- if .Values.api.enabled }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    {{- include "movies.labels" . | nindent 4 }}
+    app.kubernetes.io/component: catalog
+  name: rent
+spec:
+  replicas: {{ .Values.api.replicaCount }}
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: api
+      app.kubernetes.io/instance: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: api
+        app.kubernetes.io/instance: {{ .Release.Name }}
+    spec:
+      containers:
+      - image: {{ .Values.api.image }}
+        name: rent
+        ports:
+        - containerPort: 8080
+          name: rent
+{{- end }}
