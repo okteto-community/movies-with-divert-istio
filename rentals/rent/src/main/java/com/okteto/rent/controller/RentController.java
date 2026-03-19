@@ -21,6 +21,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.HashMap;
 import java.util.Collections;
 
 @RestController
@@ -37,8 +38,14 @@ public class RentController {
     private RentalRepository rentalRepository;
 
     @GetMapping(path= "/rent/healthz", produces = "application/json")
-    Map<String, String> healthz() {
-            return Collections.singletonMap("status", "ok");
+    Map<String, String> healthz( @RequestHeader(value = "baggage", required = false) String baggage) {
+        String namespace = System.getenv("KUBERNETES_NAMESPACE");
+        Map<String, String> response = new HashMap<>();
+        response.put("status", "ok");
+        response.put("namespace", namespace != null ? namespace : "");
+        response.put("baggage", baggage != null ? baggage : "");
+
+        return response;
     }
 
     @GetMapping(path= "/rent", produces = "application/json")
