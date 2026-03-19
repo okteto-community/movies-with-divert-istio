@@ -8,7 +8,10 @@ build:
 
 deploy:
   divert:
-    namespace: ${OKTETO_SHARED_NAMESPACE}
+    driver: istio
+    virtualServices:
+      - name: catalog
+        namespace: movies-shared
   commands:
   - name: Deploy Rent
     command: helm upgrade --install rentals rentals/chart --set api.image=${OKTETO_BUILD_RENT_IMAGE} --set worker.image=${OKTETO_BUILD_WORKER_IMAGE}
