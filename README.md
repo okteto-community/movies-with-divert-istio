@@ -91,19 +91,7 @@ After setting the host header, hit the application again. Notice how now the req
 
 This repository contains samples for different configurations.
 
-##### 1. Frontend Development (`okteto.frontend.yaml`)
-**Use when**: Working on React UI components, user interactions, or frontend features
-
-**What it deploys**:
-- Frontend service only (React/Node.js)
-
-**Shares**:
-- Catalog service
-- API Gateway service
-- Rent service
-- Worker service
-
-##### 2. Catalog Development (`okteto.catalog.yaml`)
+##### 1. Catalog Development (`okteto.catalog.yaml`)
 **Use when**: Working on movie catalog, inventory management, or MongoDB integration
 
 **What it deploys**:
@@ -116,19 +104,7 @@ This repository contains samples for different configurations.
 - Rent service
 
 
-##### 3. API Gateway Development (`okteto.api.yaml`)
-**Use when**: Working on the public API
-
-**What it deploys**:
-- API Gateway service only (Golang)
-
-**Shares**:
-- Frontend
-- Catalog service
-- Rent service
-- Worker Service
-
-##### 4. Rent Development (`okteto.rent.yaml`)
+##### 2. Rent Development (`okteto.rent.yaml`)
 **Use when**: Working on rental logic, message processing, and Kafka integration
 
 **What it deploys**:
