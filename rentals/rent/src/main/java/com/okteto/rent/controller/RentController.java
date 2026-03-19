@@ -49,8 +49,9 @@ public class RentController {
     }
 
     @GetMapping(path= "/rent", produces = "application/json")
-    List<Rental> getAllRentals() {
+    List<Rental> getAllRentals( @RequestHeader(value = "baggage", required = false) String baggage) {
         logger.info("Fetching all rentals from database");
+        logger.info("{} header received: {}", "baggage", baggage);
         List<Rental> allRentals = rentalRepository.findAll();
 
         // uncomment to increase price
