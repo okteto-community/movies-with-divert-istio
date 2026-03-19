@@ -27,7 +27,7 @@ Okteto's Divert feature allows developers to work on individual microservices wi
 
 - Okteto CLI installed (`brew install okteto` or download from [okteto.com](https://okteto.com))
 - kubectl configured
-- Access to an Okteto cluster
+- Access to an Okteto cluster [configured with Istio](https://www.okteto.com/docs/self-hosted/install/divert/)
 - Modheader (or a similar extension that enables host header customization) on your browser
 
 ### Setup Steps
@@ -55,13 +55,11 @@ This is what the application looks like:
 
 The key advantage of divert is that you only need to deploy the service(s) you are actively working, rather than the full application.
 
-To deploy your development environment export the `OKTETO_SHARED_NAMESPACE` environment variable, and run the `okteto deploy` command with the corresponding okteto manifest. 
 ```
-export OKTETO_SHARED_NAMESPACE="movies-shared"
 okteto up -f okteto.catalog.yaml
 ```
 
-After this, access the application via the endpoint. You'll notice that it still access the shared service. In order for the request to access your personal copy of the catalog service, set the baggage header as shown below, where `cindy` is the name of your personal namespace. We recommend ModHeader for browser-based requests. 
+After this, access the application via the original endpoint. You'll notice that it still access the shared service. In order for the request to access your personal copy of the catalog service, set the baggage header as shown below, where `cindy` is the name of your personal namespace. We recommend ModHeader for browser-based requests. 
 
 ```
 baggage: okteto-divert=cindy
@@ -71,7 +69,7 @@ You can also easily test it from the terminal:
 
 ```
 # without the header 
-> curl https://movies-movies-shared.demo.okteto.dev/api/catalog/healthz
+> curl https://movies-movies-shared.okteto.example.com/api/catalog/healthz
 {
 "status": "ok",
 "namespace": "movies-shared"
@@ -80,7 +78,7 @@ You can also easily test it from the terminal:
 
 
 ```
-curl -H "baggage: okteto-divert=cindy" https://movies-movies-shared.demo.okteto.dev/api/catalog/healthz
+curl -H "baggage: okteto-divert=cindy" https://movies-movies-shared.okteto.example.com/api/catalog/healthz
 {
 "status": "ok",
 "namespace": "cindy"
@@ -144,8 +142,6 @@ This repository contains samples for different configurations.
 - Catalog service
 - API service
 
-
-
 ## Baggage Header Propagation
 Note that all the services of the movies app have been instrumented with baggage header propagation. This is so that Okteto Divert routing works seamlessly across all services.
 
@@ -164,8 +160,7 @@ Note that all the services of the movies app have been instrumented with baggage
 
 ## Support
 
-- **Documentation**: [okteto.com/docs/divert](https://okteto.com/docs)
-- **GitHub Issues**: [github.com/okteto/movies/issues](https://github.com/okteto/movies/issues)
+- **Documentation**: [okteto.com/docs/core/divert](https://www.okteto.com/docs/core/divert/)
 - **Community**: [community.okteto.com](https://community.okteto.com)
 - **Slack**: [okteto.com/slack](https://okteto.com/slack)
 
