@@ -13,7 +13,13 @@ func NewProxy(target string) http.Handler {
 	if err != nil {
 		log.Fatalf("Error parsing target URL: %v", err)
 	}
-	return httputil.NewSingleHostReverseProxy(targetURL)
+	proxy := httputil.NewSingleHostReverseProxy(targetURL)
+	originalDirector := proxy.Director
+	proxy.Director = func(req *http.Request) {
+		originalDirector(req)
+		req.Host = targetURL.Host
+	}
+	return proxy
 }
 
 func Healthz(w http.ResponseWriter, r *http.Request) {
