@@ -15,7 +15,12 @@ async function startWithRetry() {
     const db = client.db(process.env.MONGODB_DATABASE);
 
     app.get("/catalog/healthz", (req, res, next) => {
-      res.json({"status": "ok", "namespace": process.env.KUBERNETES_NAMESPACE});
+      res.json(
+        {
+          "status": "ok", 
+          "namespace": process.env.KUBERNETES_NAMESPACE, 
+          "baggage": req.headers["baggage"] || "none"
+        });
     });
 
     app.get("/catalog", async (req, res, next) => {
