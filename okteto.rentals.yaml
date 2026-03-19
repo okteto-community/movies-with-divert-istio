@@ -10,7 +10,7 @@ deploy:
   divert:
     driver: istio
     virtualServices:
-      - name: catalog
+      - name: rent
         namespace: movies-shared
   commands:
   - name: Deploy Rent
