@@ -160,7 +160,7 @@ Note that all the services of the movies app have been instrumented with baggage
 
 ## Support
 
-- **Documentation**: [[okteto.com/docs/divert](https://www.okteto.com/docs/core/divert/)]
+- **Documentation**: [okteto.com/docs/core/divert](https://www.okteto.com/docs/core/divert/)
 - **Community**: [community.okteto.com](https://community.okteto.com)
 - **Slack**: [okteto.com/slack](https://okteto.com/slack)
 
