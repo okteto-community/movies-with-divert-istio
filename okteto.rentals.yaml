@@ -22,7 +22,6 @@ external:
     endpoints:
       - name: shared
         url: https://movies-movies-shared.$OKTETO_DOMAIN
-        
 dev:
   rent:
     command: mvn spring-boot:run
