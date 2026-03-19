@@ -10,10 +10,19 @@ spec:
   hosts:
   - catalog.{{ .Release.Namespace }}.svc.cluster.local
   http:
-  - route:
-    - destination:
-        host: catalog.{{ .Release.Namespace }}.svc.cluster.local
-        subset: stable
+    - match:
+      - gateways:
+          - mesh
+        port: 8080
+      name: mesh-to-mesh
+      route:
+        - destination:
+            host: catalog.{{ .Release.Namespace }}.svc.cluster.local
+            port:
+              number: 8080
+            subset: stable
+          weight: 100
+      timeout: 60s
 
 ---
 
