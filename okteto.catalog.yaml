@@ -14,6 +14,13 @@ deploy:
   - name: Deploy Catalog
     command: helm upgrade --install catalog catalog/chart --set image=${OKTETO_BUILD_CATALOG_IMAGE}
 
+external:
+  shared:
+    icon: okteto
+    endpoints:
+      - name: shared
+        url: https://movies-movies-shared.$OKTETO_DOMAIN
+
 dev:
   catalog:
     command: yarn start

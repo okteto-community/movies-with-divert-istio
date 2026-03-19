@@ -16,6 +16,13 @@ deploy:
   - name: Deploy Rent
     command: helm upgrade --install rentals rentals/chart --set api.image=${OKTETO_BUILD_RENT_IMAGE} --set worker.image=${OKTETO_BUILD_WORKER_IMAGE}
 
+external:
+  shared:
+    icon: okteto
+    endpoints:
+      - name: shared
+        url: https://movies-movies-shared.$OKTETO_DOMAIN
+        
 dev:
   rent:
     command: mvn spring-boot:run
